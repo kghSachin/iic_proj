@@ -33,6 +33,7 @@ const AddJobPage = ({ addJobSubmit }) => {
     };
 
     addJobSubmit(newJob);
+    
 
     toast.success('Job Added Successfully');
 

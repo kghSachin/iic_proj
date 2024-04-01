@@ -12,18 +12,24 @@ import JobPage, { jobLoader } from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
 import LoginForm from "./pages/LoginPage";
+import { Axios } from "axios";
 
 const App = () => {
   // Add New Job
   const addJob = async (newJob) => {
-    const res = await fetch("/api/jobs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newJob),
-    });
-    return;
+    try {
+      const res = await Axios.post("/api/jobs", newJob);
+    } catch (error) {
+      console.log(error);
+    }
+    // const res = await fetch("/api/jobs", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(newJob),
+    // });
+    // return;
   };
 
   // Delete Job

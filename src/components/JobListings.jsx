@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import JobListing from "./JobListing";
 import Spinner from "./Spinner";
+import axios from "axios";
 
 const JobListings = ({ isHome = false }) => {
   const [jobs, setJobs] = useState([]);
@@ -8,11 +9,13 @@ const JobListings = ({ isHome = false }) => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const apiUrl = isHome ? "/api/jobs/" : "/api/jobs";
+      const apiUrl = "http://localhost:8000/api/v1/jobs/";
       try {
-        const res = await fetch(apiUrl);
-        const data = await res.json();
-        setJobs(data);
+        const res = await axios.get(apiUrl);
+        // const res = await fetch(apiUrl);
+        // const data = await res.json();
+        // setJobs(data);
+        setJobs(res.data.data);
       } catch (error) {
         console.log("Error fetching data", error);
       } finally {
