@@ -13,6 +13,7 @@ import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
 import LoginForm from "./pages/LoginPage";
 import { Axios } from "axios";
+import RegisterForm from "./pages/RegisterPage";
 
 const App = () => {
   // Add New Job
@@ -58,6 +59,7 @@ const App = () => {
         <Route index element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
         <Route path="login" element={<LoginForm />} />
+        <Route path="register" element={<RegisterForm />} />
         <Route path="/add-job" element={<AddJobPage addJobSubmit={addJob} />} />
         <Route
           path="/edit-job/:id"

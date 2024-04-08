@@ -17,11 +17,13 @@ const AddJobPage = ({ addJobSubmit }) => {
   const navigate = useNavigate();
 
   const submitForm = async (e) => {
+    console.log(localStorage.getItem("id"));
+    console.log(localStorage.getItem("token"));
     e.preventDefault();
 
     const newJob = {
       title,
-      type,
+      type: "FULLTIME",
       location,
       description,
       salary,
@@ -29,7 +31,7 @@ const AddJobPage = ({ addJobSubmit }) => {
       companyDescription,
       companyPhone: contactPhone,
       companyEmail: contactEmail,
-      userId: 3,
+      userId: Number(localStorage.getItem("id")),
 
       // company: {
       //   name: companyName,
@@ -38,20 +40,21 @@ const AddJobPage = ({ addJobSubmit }) => {
       //   contactPhone,
       // },
     };
-
+    console.log(newJob);
     // addJobSubmit(newJob);
     const response = await axios.post(
-      "http://localhost:8000/api/v1/users/create-job",
+      "http://localhost:8000/api/v1/users/create-job/",
 
       newJob,
       {
+        // withCredentials: true,
         headers: {
-          Authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzEyMTY2NTk5LCJleHAiOjE3MTIyNTI5OTl9.Nc0G0V76k2VQ20A1DL6Mn74FeIc1xRM1cCglGLO_e9E",
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     );
+
     console.log(response);
     if (response.status !== 201) {
       return toast.error("Error Adding Job");
@@ -86,10 +89,10 @@ const AddJobPage = ({ addJobSubmit }) => {
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value="FULLTIME">Full-Time</option>
-                <option value="PARTTIME">Part-Time</option>
-                <option value="INTERNSHIP">Remote</option>
-                <option value="REMOTE">Internship</option>
+                <option value="FULLTIME">FULLTIME</option>
+                <option value="PARTTIME">PARTTIME</option>
+                <option value="INTERNSHIP">REMOTE</option>
+                <option value="REMOTE">INTERNSHIP</option>
               </select>
             </div>
 

@@ -9,16 +9,26 @@ const JobPage = ({ deleteJob }) => {
   const { id } = useParams();
   const job = useLoaderData();
 
-  const onDeleteClick = (jobId) => {
+  const onDeleteClick = async (jobId) => {
     const confirm = window.confirm(
       "Are you sure you want to delete this listing?"
     );
 
     if (!confirm) return;
+    console.log(id);
 
-    deleteJob(jobId);
+    const res = await axios.get(
+      `http://localhost:8000/api/v1/jobs/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    console.log(res.data);
 
-    toast.success("Job deleted successfully");
+    // deleteJob(jobId);
+    if (res.status === 200) toast.success("Job deleted successfully");
 
     navigate("/jobs");
   };
